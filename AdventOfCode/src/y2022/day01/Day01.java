@@ -15,25 +15,25 @@ public class Day01 {
 		/*
 		 * This puzzle reads a set of depths (integers) from the input
 		 *
-		 * Part 1: determine how many depths are an increase from the previous depth
+		 * Part 1: determine how many single step depths are an increase from the previous depth
 		 *
-		 * Part 2: determine how many 3 sequence windows are there that are increasing.
+		 * Part 2: determine how many 3 sequence average windows (groups) are increasing.
 		 */
 
-		// Set the starting depth from the first input line
+		// Set the starting depths from the first 3 input line
 		int depth1 = Integer.valueOf(scanner.nextLine());
 		int depth2 = Integer.valueOf(scanner.nextLine());
 		int depth3 = Integer.valueOf(scanner.nextLine());
 
-		int increasingSingleDepthCounter = 0;
+		int increasingSingleStepDepthCounter = 0;
 		int increasingGroupDepthCounter  = 0;
 
-		// Check the first two steps for the single depth counter of part 1
+		// Check the first two depths for the single step depth counter of part 1
 		if (depth2 > depth1) {
-			increasingSingleDepthCounter++;
+			increasingSingleStepDepthCounter++;
 		}
 		if (depth3 > depth2) {
-			increasingSingleDepthCounter++;
+			increasingSingleStepDepthCounter++;
 		}
 
 		while (true) {
@@ -47,11 +47,14 @@ public class Day01 {
 
 			// Part 1: count the increasing depths
 			if (depth4 > depth3) {
-				increasingSingleDepthCounter++;
+				increasingSingleStepDepthCounter++;
 			}
 
 			// Part 2: count the increasing group depths
-			if ((depth2 + depth3 + depth4) > (depth1 + depth2 + depth3)) {
+			int groupA = depth1 + depth2 + depth3;
+			int groupB =          depth2 + depth3 + depth4;
+
+			if (groupB > groupA) {
 				increasingGroupDepthCounter++;
 			}
 
@@ -61,7 +64,7 @@ public class Day01 {
 			depth3 = depth4;
 		}
 
-		System.out.println("Part 1: Increasing single depths = " + increasingSingleDepthCounter );
+		System.out.println("Part 1: Increasing single depths = " + increasingSingleStepDepthCounter );
 		System.out.println("Part 2: Increasing group depths = " + increasingGroupDepthCounter );
 
 		// Clean up the scanner.
